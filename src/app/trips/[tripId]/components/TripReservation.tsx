@@ -12,8 +12,8 @@ interface TripReservationProps {
 
 interface TripReservationForm {
   guests: number;
-  startData: Date | null;
-  endData: Date | null;
+  startDate: Date | null;
+  endDate: Date | null;
 }
 
 const TripReservation = ({ trip }: TripReservationProps) => {
@@ -31,8 +31,7 @@ const TripReservation = ({ trip }: TripReservationProps) => {
   return (
     <div className="flex flex-col px-5">
       <div className="flex gap-4">
-        1:26:40
-        <Controller
+      <Controller
           name="startDate"
           rules={{
             required: {
@@ -40,16 +39,34 @@ const TripReservation = ({ trip }: TripReservationProps) => {
               message: "Data inicial é obrigatória.",
             },
           }}
-        />
-        <DatePicker
+          control={control}
+          render={({field}) => <DatePicker
+          error={!!errors?.startDate}
+          errorMessage={errors?.startDate?.message}
           placeholderText="Data de Início"
-          onChange={() => {}}
+          onChange={field.onChange}
+          selected={field.value}
           className="w-full"
+        />}
         />
-        <DatePicker
+        
+        <Controller
+          name="endDate"
+          rules={{
+            required: {
+              value: true,
+              message: "Data Final é obrigatória.",
+            },
+          }}
+          control={control}
+          render={({field}) => <DatePicker
+          error={!!errors?.endDate}
+          errorMessage={errors?.endDate?.message}
           placeholderText="Data de Final"
-          onChange={() => {}}
+          onChange={field.onChange}
+          selected={field.value}
           className="w-full"
+        />}
         />
       </div>
       <Input
